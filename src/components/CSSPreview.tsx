@@ -78,6 +78,10 @@ function MergedTokenGroup({
   );
 }
 
+function toRec(obj: object): Record<string, string> {
+  return obj as unknown as Record<string, string>;
+}
+
 function resolve(obj: Record<string, string>, primary: string): Record<string, string> {
   return Object.fromEntries(
     Object.entries(obj).map(([k, v]) => [k, v === '{primary}' ? primary : v])
@@ -111,12 +115,12 @@ export function CSSPreview({ mobile = false }: { mobile?: boolean }) {
         <MergedTokenGroup label="Brand" light={brandLight} dark={brandDark} />
         <MergedTokenGroup label="Button" light={mergedButton} dark={mergedButtonDark} defaultOpen={false} />
         <MergedTokenGroup label="Input" light={mergedInput} dark={mergedInputDark} defaultOpen={false} />
-        <MergedTokenGroup label="Link" light={resolve(brand.link as Record<string, string>, pc)} dark={resolve(brand.linkDark as Record<string, string>, pcd)} defaultOpen={false} />
-        <MergedTokenGroup label="Card" light={brand.card as Record<string, string>} dark={brand.cardDark as Record<string, string>} defaultOpen={false} />
-        <MergedTokenGroup label="Dialog" light={brand.dialog as Record<string, string>} dark={brand.dialogDark as Record<string, string>} defaultOpen={false} />
-        <MergedTokenGroup label="Nav Menu" light={resolve(brand.navMenu as Record<string, string>, pc)} dark={resolve(brand.navMenuDark as Record<string, string>, pcd)} defaultOpen={false} />
-        <MergedTokenGroup label="Header — Payment" light={resolve(brand.headerPayment as Record<string, string>, pc)} defaultOpen={false} />
-        <MergedTokenGroup label="Header — Backoffice" light={resolve(brand.headerBackoffice as Record<string, string>, pc)} defaultOpen={false} />
+        <MergedTokenGroup label="Link" light={resolve(toRec(brand.link), pc)} dark={resolve(toRec(brand.linkDark), pcd)} defaultOpen={false} />
+        <MergedTokenGroup label="Card" light={toRec(brand.card)} dark={toRec(brand.cardDark)} defaultOpen={false} />
+        <MergedTokenGroup label="Dialog" light={toRec(brand.dialog)} dark={toRec(brand.dialogDark)} defaultOpen={false} />
+        <MergedTokenGroup label="Nav Menu" light={resolve(toRec(brand.navMenu), pc)} dark={resolve(toRec(brand.navMenuDark), pcd)} defaultOpen={false} />
+        <MergedTokenGroup label="Header — Payment" light={resolve(toRec(brand.headerPayment), pc)} defaultOpen={false} />
+        <MergedTokenGroup label="Header — Backoffice" light={resolve(toRec(brand.headerBackoffice), pc)} defaultOpen={false} />
       </div>
     </div>
   );
