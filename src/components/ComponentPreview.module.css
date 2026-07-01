@@ -43,6 +43,12 @@
   gap: 10px;
 }
 
+@media (max-width: 1920px) {
+  .canvas {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
 @media (max-width: 1599px) {
   .canvas {
     grid-template-columns: repeat(3, 1fr);
