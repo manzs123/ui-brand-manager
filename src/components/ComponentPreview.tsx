@@ -50,7 +50,7 @@ export function ComponentPreview() {
         </div>
         <div className={styles.canvas}>
           <div className={styles.card} style={{ gridColumn: '1 / -1' }}>
-            <p className={styles.cardLabel}>Payment</p>
+            <p className={styles.cardLabel}>Default Header</p>
             <PreviewHeaderPayment
               backgroundColor={hdrPayBg}
               borderRadius={brand.headerPayment.borderRadius}
@@ -59,7 +59,7 @@ export function ComponentPreview() {
             />
           </div>
           <div className={styles.card} style={{ gridColumn: '1 / -1' }}>
-            <p className={styles.cardLabel}>Backoffice</p>
+            <p className={styles.cardLabel}>Hamburger Header</p>
             <PreviewHeaderBackoffice
               backgroundColor={hdrBackBg}
               borderRadius={brand.headerBackoffice.borderRadius}

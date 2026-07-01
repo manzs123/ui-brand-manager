@@ -119,8 +119,8 @@ export function CSSPreview({ mobile = false }: { mobile?: boolean }) {
         <MergedTokenGroup label="Card" light={toRec(brand.card)} dark={toRec(brand.cardDark)} defaultOpen={false} />
         <MergedTokenGroup label="Dialog" light={toRec(brand.dialog)} dark={toRec(brand.dialogDark)} defaultOpen={false} />
         <MergedTokenGroup label="Nav Menu" light={resolve(toRec(brand.navMenu), pc)} dark={resolve(toRec(brand.navMenuDark), pcd)} defaultOpen={false} />
-        <MergedTokenGroup label="Header — Payment" light={resolve(toRec(brand.headerPayment), pc)} defaultOpen={false} />
-        <MergedTokenGroup label="Header — Backoffice" light={resolve(toRec(brand.headerBackoffice), pc)} defaultOpen={false} />
+        <MergedTokenGroup label="Default Header" light={resolve(toRec(brand.headerPayment), pc)} defaultOpen={false} />
+        <MergedTokenGroup label="Hamburger Header" light={resolve(toRec(brand.headerBackoffice), pc)} defaultOpen={false} />
       </div>
     </div>
   );

@@ -268,8 +268,8 @@ export function BrandEditor() {
         <Field label="Font Size"     value={brand.input.fontSize}     onChange={v => setInp('fontSize', v)} />
       </Section>
 
-      {/* Header — Payment */}
-      <Section title="Header — Payment" defaultOpen={false}>
+      {/* Default Header */}
+      <Section title="Default Header" defaultOpen={false}>
         <GroupDivider label="Logo" />
         <div className={s.field}>
           <label className={s.fieldLabel}>Logo</label>
@@ -295,8 +295,8 @@ export function BrandEditor() {
         <Field label="Border Radius" value={brand.headerPayment.borderRadius} onChange={v => setHdrPay('borderRadius', v)} />
       </Section>
 
-      {/* Header — Backoffice */}
-      <Section title="Header — Backoffice" defaultOpen={false}>
+      {/* Hamburger Header */}
+      <Section title="Hamburger Header" defaultOpen={false}>
         <GroupDivider label="Logo" />
         <div className={s.field}>
           <label className={s.fieldLabel}>Logo</label>
