@@ -1,0 +1,167 @@
+.panel {
+  width: 260px;
+  min-width: 260px;
+  max-width: 260px;
+  background: #fff;
+  border-left: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  padding: 13px 16px 11px;
+  background: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+  flex-shrink: 0;
+}
+
+.title {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #9ca3af;
+}
+
+.body {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.body::-webkit-scrollbar { width: 3px; }
+.body::-webkit-scrollbar-track { background: transparent; }
+.body::-webkit-scrollbar-thumb { background: #e5e7eb; border-radius: 2px; }
+
+.tokenGroup {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.tokenGroup:last-child {
+  border-bottom: none;
+}
+
+.groupLabel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #6b7280;
+  padding: 10px 16px 8px;
+  background: #fafafa;
+  border: none;
+  border-bottom: 1px solid #f0f0f0;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.12s;
+}
+
+.groupLabel:hover {
+  background: #f3f4f6;
+}
+
+.chevron {
+  color: #9ca3af;
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+/* Shared 2-column grid for all rows */
+.tokenRow,
+.pairedTokenRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  padding: 6px 16px;
+  gap: 3px 8px;
+  border-bottom: 1px solid #f7f7f7;
+}
+
+.tokenRow:last-child,
+.pairedTokenRow:last-child {
+  border-bottom: none;
+}
+
+.tokenKey {
+  font-size: 11px;
+  color: #6b7280;
+  font-weight: 500;
+  line-height: 1.4;
+  padding-top: 1px;
+  word-break: break-word;
+}
+
+.tokenVal {
+  font-size: 11px;
+  color: #111827;
+  font-family: 'SF Mono', 'Fira Mono', monospace;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.colorDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  border: 1px solid rgba(0,0,0,0.08);
+  flex-shrink: 0;
+}
+
+/* Paired values (L / D stacked in col 2) */
+.pairedValues {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  overflow: hidden;
+}
+
+.pairedValueItem {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.modeBadge {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 1px 4px;
+  border-radius: 3px;
+  flex-shrink: 0;
+  line-height: 1.4;
+}
+
+.modeBadgeLight {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+.modeBadgeDark {
+  background: #1e1e2e;
+  color: #a5b4fc;
+}
+
+.panelMobile {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  border-left: none;
+  height: 100%;
+}

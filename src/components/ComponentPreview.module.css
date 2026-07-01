@@ -1,0 +1,95 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+  background: #f3f4f6;
+  gap: 0;
+}
+
+.wrapper::-webkit-scrollbar { width: 5px; }
+.wrapper::-webkit-scrollbar-track { background: transparent; }
+.wrapper::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 3px; }
+
+.section {
+  padding: 20px 24px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.sectionHead {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 12px;
+  background: #f3f4f6;
+  color: #6b7280;
+  border-radius: 9999px;
+  border: 1px solid #e5e7eb;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.canvas {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+}
+
+@media (max-width: 1599px) {
+  .canvas {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 861px) and (max-width: 1360px) {
+  .wrapper {
+    min-width: 720px;
+  }
+}
+
+@media (max-width: 860px) {
+  .canvas {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cardHug {
+  align-items: flex-start;
+}
+
+.cardNoPadding {
+  padding: 0;
+  overflow: hidden;
+  gap: 0;
+}
+
+.cardNoPadding .cardLabel {
+  padding: 10px 14px 8px;
+}
+
+.cardLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
