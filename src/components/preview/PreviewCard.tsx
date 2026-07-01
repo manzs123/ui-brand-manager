@@ -39,7 +39,7 @@ export function PreviewCard({ cardStyles, buttonStyles, inputStyles, fontFamily,
       </div>
 
       <div style={{ margin: '10px 0 16px', textAlign: 'right' }}>
-        <Link href="#" underline="always" sx={{ color: linkColor, fontWeight: 400, fontFamily, fontSize: 12 }}>
+        <Link href="#" underline="always" sx={{ color: linkColor, fontWeight: 400, fontFamily, fontSize: 12, textDecorationColor: linkColor }}>
           Forgot password?
         </Link>
       </div>

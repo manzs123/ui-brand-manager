@@ -10,7 +10,7 @@ export function PreviewLink({ color, fontFamily = 'inherit', dark = false }: Pro
   const textColor = dark ? '#fafafa' : '#111827';
   const mutedColor = dark ? '#9ca3af' : '#6b7280';
 
-  const linkSx = { color, fontWeight: 400, fontFamily, fontSize: 14 };
+  const linkSx = { color, fontWeight: 400, fontFamily, fontSize: 14, textDecorationColor: color };
 
   return (
     <div style={{ fontFamily, display: 'flex', flexDirection: 'column', gap: 10 }}>
