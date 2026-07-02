@@ -258,8 +258,8 @@ a { text-decoration: none; color: inherit; }
     animation: m-sheet-up 0.2s ease-out;
   }
   .sheet-hidden { height: 0; }
-  .sheet-peek { height: 64px; }
-  .sheet-full { height: calc(100vh - 54px); }
+  .sheet-peek { height: 60vh; }
+  .sheet-full { height: calc(100dvh - 54px); }
 
   .sheet-drag-handle {
     display: flex;

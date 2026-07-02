@@ -19,7 +19,7 @@ function useMediaQuery(query: string) {
 
 type SheetState = 'hidden' | 'peek' | 'full';
 
-const PEEK_H = 64;
+const getPeekH = () => Math.round(window.innerHeight * 0.6);
 const getFullH = () => window.innerHeight - 54;
 
 export default function App() {
@@ -117,9 +117,9 @@ export default function App() {
             <>
               {/* Bottom Sheet: Style Editor */}
               {(() => {
-                const baseH  = sheetState === 'full' ? getFullH() : sheetState === 'peek' ? PEEK_H : 0;
+                const baseH  = sheetState === 'full' ? getFullH() : sheetState === 'peek' ? getPeekH() : 0;
                 const liveH  = Math.max(0, Math.min(getFullH(), baseH - dragOffset));
-                const showBody = sheetState === 'full' || (isDragging.current && dragOffset < -30);
+                const showBody = sheetState === 'full' || sheetState === 'peek' || (isDragging.current && dragOffset < -30);
 
                 const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
                   isDragging.current = true;
@@ -130,20 +130,13 @@ export default function App() {
                 const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
                   if (!isDragging.current) return;
                   const delta = e.clientY - dragStartY.current;
-                  if (sheetState === 'peek') {
-                    const live = Math.max(0, Math.min(getFullH(), PEEK_H - delta));
-                    if (live >= window.innerHeight * 0.9) {
-                      isDragging.current = false;
-                      setDragOffset(0);
-                      setSheetState('full');
-                      return;
-                    }
-                    if (live <= 20) {
-                      isDragging.current = false;
-                      setDragOffset(0);
-                      setSheetState('hidden');
-                      return;
-                    }
+                  const baseH = sheetState === 'full' ? getFullH() : getPeekH();
+                  const live = Math.max(0, Math.min(getFullH(), baseH - delta));
+                  if (live <= 20) {
+                    isDragging.current = false;
+                    setDragOffset(0);
+                    setSheetState('hidden');
+                    return;
                   }
                   setDragOffset(delta);
                 };
@@ -152,10 +145,17 @@ export default function App() {
                   isDragging.current = false;
                   const delta = e.clientY - dragStartY.current;
                   setDragOffset(0);
-                  const travel = getFullH() - PEEK_H;
-                  if (sheetState === 'peek' && -delta >= travel * 0.45) setSheetState('full');
-                  else if (sheetState === 'peek' && delta >= 40) setSheetState('hidden');
-                  else if (sheetState === 'full' && delta >= travel * 0.45) setSheetState('peek');
+                  const peekH = getPeekH();
+                  if (sheetState === 'peek') {
+                    const liveH = Math.max(0, Math.min(getFullH(), peekH - delta));
+                    if (liveH >= window.innerHeight * 0.8) setSheetState('full');
+                    else if (delta >= 40) setSheetState('hidden');
+                  } else if (sheetState === 'full') {
+                    const travel = getFullH() - peekH;
+                    const liveH = Math.max(0, Math.min(getFullH(), getFullH() - delta));
+                    if (liveH < peekH - 40) setSheetState('hidden');
+                    else if (delta >= travel * 0.45) setSheetState('peek');
+                  }
                 };
 
                 return (
@@ -175,6 +175,12 @@ export default function App() {
                     <div className="sheet-header">
                       <span className="panel-title">Style Editor</span>
                       <div className="sheet-controls">
+                        <button
+                          className="sheet-ctrl-btn sheet-hide-btn"
+                          onClick={() => setSheetState('hidden')}
+                        >
+                          Hide
+                        </button>
                         <button
                           className="sheet-ctrl-btn"
                           onClick={() => setSheetState(s => s === 'full' ? 'peek' : 'full')}
