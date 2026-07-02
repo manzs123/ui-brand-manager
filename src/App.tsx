@@ -17,8 +17,9 @@ function useMediaQuery(query: string) {
   return matches;
 }
 
-type SheetState = 'hidden' | 'peek' | 'full';
+type SheetState = 'mini' | 'peek' | 'full';
 
+const MINI_H = 64;
 const getPeekH = () => Math.round(window.innerHeight * 0.6);
 const getFullH = () => window.innerHeight - 54;
 
@@ -27,7 +28,7 @@ export default function App() {
   const isNarrow  = useMediaQuery('(max-width: 1360px)') && !isMobile;
   const [showTokens, setShowTokens] = useState(() => window.innerWidth > 860);
   const [showBrandDrawer, setShowBrandDrawer] = useState(false);
-  const [sheetState, setSheetState] = useState<SheetState>('peek');
+  const [sheetState, setSheetState] = useState<SheetState>('mini');
   const [dragOffset, setDragOffset] = useState(0);
   const isDragging = useRef(false);
   const dragStartY = useRef(0);
@@ -117,9 +118,9 @@ export default function App() {
             <>
               {/* Bottom Sheet: Style Editor */}
               {(() => {
-                const baseH  = sheetState === 'full' ? getFullH() : sheetState === 'peek' ? getPeekH() : 0;
-                const liveH  = Math.max(0, Math.min(getFullH(), baseH - dragOffset));
-                const showBody = sheetState === 'full' || sheetState === 'peek' || (isDragging.current && dragOffset < -30);
+                const baseH  = sheetState === 'full' ? getFullH() : sheetState === 'peek' ? getPeekH() : MINI_H;
+                const liveH  = Math.max(MINI_H, Math.min(getFullH(), baseH - dragOffset));
+                const showBody = sheetState !== 'mini';
 
                 const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
                   isDragging.current = true;
@@ -129,16 +130,7 @@ export default function App() {
                 };
                 const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
                   if (!isDragging.current) return;
-                  const delta = e.clientY - dragStartY.current;
-                  const baseH = sheetState === 'full' ? getFullH() : getPeekH();
-                  const live = Math.max(0, Math.min(getFullH(), baseH - delta));
-                  if (live <= 20) {
-                    isDragging.current = false;
-                    setDragOffset(0);
-                    setSheetState('hidden');
-                    return;
-                  }
-                  setDragOffset(delta);
+                  setDragOffset(e.clientY - dragStartY.current);
                 };
                 const onPointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
                   if (!isDragging.current) return;
@@ -146,15 +138,17 @@ export default function App() {
                   const delta = e.clientY - dragStartY.current;
                   setDragOffset(0);
                   const peekH = getPeekH();
-                  if (sheetState === 'peek') {
+                  if (sheetState === 'mini') {
+                    if (-delta >= 20) setSheetState('peek');
+                  } else if (sheetState === 'peek') {
                     const liveH = Math.max(0, Math.min(getFullH(), peekH - delta));
                     if (liveH >= window.innerHeight * 0.8) setSheetState('full');
-                    else if (delta >= 40) setSheetState('hidden');
+                    else if (delta >= 40) setSheetState('mini');
                   } else if (sheetState === 'full') {
-                    const travel = getFullH() - peekH;
+                    const peekTravel = getFullH() - peekH;
                     const liveH = Math.max(0, Math.min(getFullH(), getFullH() - delta));
-                    if (liveH < peekH - 40) setSheetState('hidden');
-                    else if (delta >= travel * 0.45) setSheetState('peek');
+                    if (liveH < peekH - 40) setSheetState('mini');
+                    else if (delta >= peekTravel * 0.45) setSheetState('peek');
                   }
                 };
 
@@ -176,14 +170,8 @@ export default function App() {
                       <span className="panel-title">Style Editor</span>
                       <div className="sheet-controls">
                         <button
-                          className="sheet-ctrl-btn sheet-hide-btn"
-                          onClick={() => setSheetState('hidden')}
-                        >
-                          Hide
-                        </button>
-                        <button
                           className="sheet-ctrl-btn"
-                          onClick={() => setSheetState(s => s === 'full' ? 'peek' : 'full')}
+                          onClick={() => setSheetState(s => s === 'full' ? 'peek' : s === 'peek' ? 'mini' : 'peek')}
                         >
                           {sheetState === 'full' ? (
                             <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -204,15 +192,6 @@ export default function App() {
                   </div>
                 );
               })()}
-
-              {sheetState === 'hidden' && (
-                <button className="sheet-restore-btn" onClick={() => setSheetState('peek')}>
-                  <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
-                    <path d="M10 8l-4-4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                  Style Editor
-                </button>
-              )}
 
               {/* Props Panel full-screen overlay */}
               {showTokens && (

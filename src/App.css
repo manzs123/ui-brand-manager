@@ -5,18 +5,18 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   background: #f3f4f6;
   color: #111827;
-  height: 100vh;
+  height: 100dvh;
   overflow: hidden;
 }
 
-#root { height: 100vh; display: flex; }
+#root { height: 100dvh; display: flex; }
 a { text-decoration: none; color: inherit; }
 
 /* ---- Shell ---- */
 .app-shell {
   display: flex;
   width: 100%;
-  height: 100vh;
+  height: 100dvh;
   overflow: hidden;
 }
 
@@ -257,8 +257,8 @@ a { text-decoration: none; color: inherit; }
     box-shadow: 0 -4px 24px rgba(0,0,0,0.08);
     animation: m-sheet-up 0.2s ease-out;
   }
-  .sheet-hidden { height: 0; }
-  .sheet-peek { height: 60vh; }
+  .sheet-mini { height: 64px; }
+  .sheet-peek { height: 60dvh; }
   .sheet-full { height: calc(100dvh - 54px); }
 
   .sheet-drag-handle {
